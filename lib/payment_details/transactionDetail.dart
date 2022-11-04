@@ -1,3 +1,4 @@
+import 'package:explorer/main.dart';
 import 'package:explorer/pages/explorer.dart';
 import 'package:explorer/m_y_card/transactionCard.dart';
 import 'package:explorer/payment_details/addressShort.dart';
@@ -217,7 +218,7 @@ class _TransactionWidget extends State<TransactionWidget>
                                                               PageTransitionType
                                                                   .fade,
                                                           child:
-                                                              const MYCardWidget(),
+                                                              const NavBarPage(),
                                                         ),
                                                       )
                                                     },
