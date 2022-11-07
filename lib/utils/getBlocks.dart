@@ -80,11 +80,17 @@ class Transaction {
   }
 }
 
-Future<List> getLatestBlocks(int block_height) async {
+Future<List> getLatestBlocks() async {
   List<Map<String, dynamic>> response = [];
   try {
+    var block_height;
+    var height =
+        await http.get(Uri.parse("https://fullnode.devnet.aptoslabs.com/v1/"));
+    if (height.statusCode == 200) {
+      block_height = (jsonDecode(height.body)["block_height"]);
+    }
     for (var i = 0; i < 10; i++) {
-      var blockHeight = (block_height + i).toString();
+      var blockHeight = (int.parse(block_height) - i).toString();
       var uri = Uri.parse(
           "https://fullnode.devnet.aptoslabs.com/v1/blocks/by_height/$blockHeight");
       final data = await http.get(uri);
@@ -119,5 +125,5 @@ Future<Map> getBlock(String blockHeight) async {
 }
 
 void main() {
-  getLatestBlocks(6839515);
+  getLatestBlocks();
 }

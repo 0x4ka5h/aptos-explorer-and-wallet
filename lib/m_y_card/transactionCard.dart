@@ -26,8 +26,8 @@ Widget transactionsCard(
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: Offset(0, 30),
-          end: Offset(0, 0),
+          begin: const Offset(0, 30),
+          end: const Offset(0, 0),
         ),
         ScaleEffect(
           curve: Curves.easeInOut,
@@ -50,8 +50,8 @@ Widget transactionsCard(
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: Offset(0, 49),
-          end: Offset(0, 0),
+          begin: const Offset(0, 49),
+          end: const Offset(0, 0),
         ),
         ScaleEffect(
           curve: Curves.easeInOut,
@@ -74,8 +74,8 @@ Widget transactionsCard(
           curve: Curves.easeInOut,
           delay: 50.ms,
           duration: 600.ms,
-          begin: Offset(0, 51),
-          end: Offset(0, 0),
+          begin: const Offset(0, 51),
+          end: const Offset(0, 0),
         ),
         ScaleEffect(
           curve: Curves.easeInOut,
@@ -98,8 +98,8 @@ Widget transactionsCard(
           curve: Curves.easeInOut,
           delay: 80.ms,
           duration: 600.ms,
-          begin: Offset(0, 69),
-          end: Offset(0, 0),
+          begin: const Offset(0, 69),
+          end: const Offset(0, 0),
         ),
         ScaleEffect(
           curve: Curves.easeInOut,
@@ -112,18 +112,26 @@ Widget transactionsCard(
 
   return // Generated code for this Container Widget...
       Padding(
-    padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 6),
+    padding: const EdgeInsetsDirectional.fromSTEB(16, 4, 16, 6),
     child: InkWell(
       onTap: () async {
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
-          PageTransition(
-            type: PageTransitionType.fade,
-            child: TransactionWidget(
+          MaterialPageRoute(
+            builder: (context) => TransactionWidget(
               version: transactionDetails["version"],
             ),
           ),
         );
+        // Navigator.pushReplacement(
+        //   context,
+        //   PageTransition(
+        //     type: PageTransitionType.fade,
+        //     child: TransactionWidget(
+        //       version: transactionDetails["version"],
+        //     ),
+        //   ),
+        // );
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.93,
@@ -140,7 +148,7 @@ Widget transactionsCard(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -321,7 +329,7 @@ Widget transactionsCard(
                     animationsMap['containerOnPageLoadAnimation1']!),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -352,8 +360,8 @@ Widget transactionsCard(
                                   ),
                             ),
                             Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 0, 4, 0),
                               child: Text(
                                 "Gas: 0.00101 ",
                                 textAlign: TextAlign.end,
@@ -361,7 +369,7 @@ Widget transactionsCard(
                                     .bodyText2
                                     .override(
                                       fontFamily: 'Lexend',
-                                      color: Color(0xB3FFFFFF),
+                                      color: const Color(0xB3FFFFFF),
                                       fontWeight: FontWeight.w300,
                                     ),
                               ),

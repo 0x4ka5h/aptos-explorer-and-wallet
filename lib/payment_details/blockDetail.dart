@@ -6,6 +6,7 @@ import 'package:explorer/pages/transactions.dart';
 import 'package:explorer/payment_details/addressShort.dart';
 import 'package:explorer/payment_details/overview.dart';
 import 'package:explorer/payment_details/subFields.dart';
+import 'package:explorer/payment_details/transactionDetail.dart';
 import 'package:explorer/utils/getBlocks.dart';
 import 'package:explorer/utils/getRecentTransactions.dart';
 import 'package:explorer/utils/getTransactionDetailsBy.dart';
@@ -128,6 +129,7 @@ class _BlockWidget extends State<BlockWidget> with TickerProviderStateMixin {
     ),
   };
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  TextEditingController searchText = TextEditingController();
 
   @override
   void initState() {
@@ -217,17 +219,17 @@ class _BlockWidget extends State<BlockWidget> with TickerProviderStateMixin {
                                                               .tertiaryColor,
                                                     ),
                                                     onPressed: () => {
-                                                      // Navigator.pop(context)
-                                                      Navigator.pushReplacement(
-                                                        context,
-                                                        PageTransition(
-                                                          type:
-                                                              PageTransitionType
-                                                                  .fade,
-                                                          child:
-                                                              const NavBarPage(),
-                                                        ),
-                                                      )
+                                                      Navigator.pop(context)
+                                                      // Navigator.pushReplacement(
+                                                      //   context,
+                                                      //   PageTransition(
+                                                      //     type:
+                                                      //         PageTransitionType
+                                                      //             .fade,
+                                                      //     child:
+                                                      //         const NavBarPage(),
+                                                      //   ),
+                                                      // )
                                                     },
                                                   ),
                                                 ),
@@ -236,6 +238,31 @@ class _BlockWidget extends State<BlockWidget> with TickerProviderStateMixin {
                                           padding: const EdgeInsetsDirectional
                                               .fromSTEB(0, 0, 10, 0),
                                           child: SearchBarAnimation(
+                                            onEditingComplete: () {
+                                              var temp = searchText.text;
+                                              setState(() {
+                                                searchText.text = '';
+                                              });
+                                              temp.length < 7
+                                                  ? Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            BlockWidget(
+                                                          height: temp,
+                                                        ),
+                                                      ),
+                                                    )
+                                                  : Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            TransactionWidget(
+                                                          version: temp,
+                                                        ),
+                                                      ),
+                                                    );
+                                            },
                                             buttonColour:
                                                 FlutterFlowTheme.of(context)
                                                     .tertiaryColor,
@@ -243,9 +270,8 @@ class _BlockWidget extends State<BlockWidget> with TickerProviderStateMixin {
                                                 MediaQuery.of(context)
                                                         .size
                                                         .width *
-                                                    0.86,
-                                            textEditingController:
-                                                TextEditingController(),
+                                                    0.75,
+                                            textEditingController: searchText,
                                             isSearchBoxOnRightSide: true,
                                             onPressButton: (bool isOpen) {
                                               setState(() {
@@ -474,6 +500,22 @@ class _BlockWidget extends State<BlockWidget> with TickerProviderStateMixin {
                           data: snapshot.data!["transactions"],
                         ),
                       ],
+                    );
+                  } else if (snapshot.hasError) {
+                    return Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Invalid Transaction",
+                            style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.red[500],
+                            ),
+                          )
+                        ],
+                      ),
                     );
                   } else {
                     return Center(

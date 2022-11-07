@@ -130,6 +130,7 @@ class _TransactionWidget extends State<TransactionWidget>
     ),
   };
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  late TextEditingController searchText;
 
   @override
   void initState() {
@@ -140,6 +141,7 @@ class _TransactionWidget extends State<TransactionWidget>
           !anim.applyInitialState),
       this,
     );
+    searchText = TextEditingController();
   }
 
   @override
@@ -152,6 +154,90 @@ class _TransactionWidget extends State<TransactionWidget>
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    child: expansion
+                        ? null
+                        : Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 6, 0, 0),
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.arrow_back_rounded,
+                                size: 20,
+                                color:
+                                    FlutterFlowTheme.of(context).tertiaryColor,
+                              ),
+                              onPressed: () => {
+                                Navigator.pop(context)
+                                // Navigator.pushReplacement(
+                                //   context,
+                                //   PageTransition(
+                                //     type:
+                                //         PageTransitionType
+                                //             .fade,
+                                //     child:
+                                //         const NavBarPage(),
+                                //   ),
+                                // )
+                              },
+                            ),
+                          ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
+                    child: SearchBarAnimation(
+                      onEditingComplete: () {
+                        var temp = searchText.text;
+                        setState(() {
+                          searchText.text = '';
+                        });
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TransactionWidget(
+                              version: temp,
+                            ),
+                          ),
+                        );
+                      },
+                      buttonColour: FlutterFlowTheme.of(context).tertiaryColor,
+                      searchBoxWidth: MediaQuery.of(context).size.width * 0.8,
+                      textEditingController: searchText,
+                      isSearchBoxOnRightSide: true,
+                      onPressButton: (bool isOpen) {
+                        setState(() {
+                          expansion = isOpen;
+                        });
+                      },
+                      hintText:
+                          "Acc Address / Txn Hash / Block Height or Version",
+                      isOriginalAnimation: true,
+                      enableKeyboardFocus: true,
+                      trailingWidget: const Icon(
+                        Icons.search,
+                        size: 20,
+                        color: Colors.black,
+                      ),
+                      secondaryButtonWidget: const Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        size: 20,
+                        color: Colors.black,
+                      ),
+                      buttonWidget: const Icon(
+                        Icons.search,
+                        size: 20,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               FutureBuilder<getTransactionDetail>(
                 future: getDetailedTransactions(widget.version),
                 builder: (BuildContext context,
@@ -183,95 +269,10 @@ class _TransactionWidget extends State<TransactionWidget>
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          child: expansion
-                                              ? null
-                                              : Padding(
-                                                  padding:
-                                                      const EdgeInsetsDirectional
-                                                          .fromSTEB(0, 6, 0, 0),
-                                                  child: IconButton(
-                                                    icon: Icon(
-                                                      Icons.arrow_back_rounded,
-                                                      size: 20,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .tertiaryColor,
-                                                    ),
-                                                    onPressed: () => {
-                                                      // Navigator.pop(context)
-                                                      Navigator.pushReplacement(
-                                                        context,
-                                                        PageTransition(
-                                                          type:
-                                                              PageTransitionType
-                                                                  .fade,
-                                                          child:
-                                                              const NavBarPage(),
-                                                        ),
-                                                      )
-                                                    },
-                                                  ),
-                                                ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsetsDirectional
-                                              .fromSTEB(0, 0, 10, 0),
-                                          child: SearchBarAnimation(
-                                            buttonColour:
-                                                FlutterFlowTheme.of(context)
-                                                    .tertiaryColor,
-                                            searchBoxWidth:
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.86,
-                                            textEditingController:
-                                                TextEditingController(),
-                                            isSearchBoxOnRightSide: true,
-                                            onPressButton: (bool isOpen) {
-                                              setState(() {
-                                                expansion = isOpen;
-                                              });
-                                            },
-                                            hintText:
-                                                "Acc Address / Txn Hash / Block Height or Version",
-                                            isOriginalAnimation: true,
-                                            enableKeyboardFocus: true,
-                                            trailingWidget: const Icon(
-                                              Icons.search,
-                                              size: 20,
-                                              color: Colors.black,
-                                            ),
-                                            secondaryButtonWidget: const Icon(
-                                              Icons.arrow_back_ios_new_rounded,
-                                              size: 20,
-                                              color: Colors.black,
-                                            ),
-                                            buttonWidget: const Icon(
-                                              Icons.search,
-                                              size: 20,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
                                     Padding(
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
-                                              0, 8, 20, 0),
+                                              0, 0, 20, 0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -538,6 +539,22 @@ class _TransactionWidget extends State<TransactionWidget>
                         ),
                       ],
                     );
+                  } else if (snapshot.hasError) {
+                    return Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Invalid Transaction",
+                            style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.red[500],
+                            ),
+                          )
+                        ],
+                      ),
+                    );
                   } else {
                     return Center(
                       child: Column(
@@ -570,5 +587,5 @@ class _TransactionWidget extends State<TransactionWidget>
 }
 
 String toShortAddres({required String address, required int index}) {
-  return "${address.substring(0, index)}...${address.substring(address.length - 3, address.length)}";
+  return "${address.substring(0, index)}...${address.substring(address.length - 5, address.length)}";
 }

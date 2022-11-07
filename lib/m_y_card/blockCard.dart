@@ -115,20 +115,11 @@ Widget blockCard(BuildContext context, Map<String, dynamic> blockDetails) {
     padding: const EdgeInsetsDirectional.fromSTEB(16, 4, 16, 6),
     child: InkWell(
       onTap: () async {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) =>
-        //         BlockWidget(height: blockDetails["block_height"]),
-        //   ),
-        // );
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
-          PageTransition(
-            type: PageTransitionType.fade,
-            child: BlockWidget(
-              height: blockDetails["block_height"],
-            ),
+          MaterialPageRoute(
+            builder: (context) =>
+                BlockWidget(height: blockDetails["block_height"]),
           ),
         );
       },

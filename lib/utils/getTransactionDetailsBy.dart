@@ -121,20 +121,22 @@ Future<getTransactionDetail> getDetailedTransactions(String txnRversion) async {
     if (txnRversion.length > 15) {
       data = await http.get(
         Uri.http(
-          'fullnode.mainnet.aptoslabs.com',
+          'fullnode.devnet.aptoslabs.com',
           '/v1/transactions/by_hash/$txnRversion',
         ),
       );
     } else {
       data = await http.get(
         Uri.http(
-          'fullnode.mainnet.aptoslabs.com',
+          'fullnode.devnet.aptoslabs.com',
           '/v1/transactions/by_version/$txnRversion',
         ),
       );
     }
 
     await Future.delayed(const Duration(milliseconds: 100));
+
+    print(data.statusCode);
 
     if (data.statusCode == 200) {
       var data_ = data.body.toString().replaceAll("state_key_hash", "SK hash");

@@ -1,6 +1,8 @@
+import 'package:explorer/pages/account.dart';
 import 'package:explorer/pages/blocks.dart';
 import 'package:explorer/m_y_card/detailsCardWidget.dart';
 import 'package:explorer/pages/transactions.dart';
+import 'package:explorer/payment_details/blockDetail.dart';
 import 'package:explorer/utils/getRecentTransactions.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:page_transition/page_transition.dart';
@@ -14,6 +16,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:explorer/m_y_card/transactionCard.dart';
+import '../payment_details/transactionDetail.dart';
 
 class MYCardWidget extends StatefulWidget {
   const MYCardWidget({Key? key}) : super(key: key);
@@ -39,8 +42,8 @@ class _MYCardWidgetState extends State<MYCardWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: Offset(0, 30),
-          end: Offset(0, 0),
+          begin: const Offset(0, 30),
+          end: const Offset(0, 0),
         ),
         ScaleEffect(
           curve: Curves.easeInOut,
@@ -63,8 +66,8 @@ class _MYCardWidgetState extends State<MYCardWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: Offset(0, 49),
-          end: Offset(0, 0),
+          begin: const Offset(0, 49),
+          end: const Offset(0, 0),
         ),
         ScaleEffect(
           curve: Curves.easeInOut,
@@ -87,8 +90,8 @@ class _MYCardWidgetState extends State<MYCardWidget>
           curve: Curves.easeInOut,
           delay: 50.ms,
           duration: 600.ms,
-          begin: Offset(0, 51),
-          end: Offset(0, 0),
+          begin: const Offset(0, 51),
+          end: const Offset(0, 0),
         ),
         ScaleEffect(
           curve: Curves.easeInOut,
@@ -111,8 +114,8 @@ class _MYCardWidgetState extends State<MYCardWidget>
           curve: Curves.easeInOut,
           delay: 80.ms,
           duration: 600.ms,
-          begin: Offset(0, 69),
-          end: Offset(0, 0),
+          begin: const Offset(0, 69),
+          end: const Offset(0, 0),
         ),
         ScaleEffect(
           curve: Curves.easeInOut,
@@ -124,9 +127,11 @@ class _MYCardWidgetState extends State<MYCardWidget>
   };
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  late TextEditingController searchText;
   @override
   void initState() {
     super.initState();
+    searchText = TextEditingController();
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -166,29 +171,35 @@ class _MYCardWidgetState extends State<MYCardWidget>
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 8, 20, 0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Text(
-                                  "Aptos Explorer",
-                                  style: FlutterFlowTheme.of(context)
-                                      .title1
-                                      .override(
-                                        fontFamily: 'Lexend',
-                                        color: FlutterFlowTheme.of(context)
-                                            .textColor,
-                                        fontSize: 37,
-                                      ),
-                                ),
-                              ],
-                            ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Image(
+                                image: NetworkImage(
+                                    "https://img.api.cryptorank.io/coins/aptos1652797629854.png"),
+                                height: 45,
+                                width: 45,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "Aptos Explorer",
+                                style: FlutterFlowTheme.of(context)
+                                    .title1
+                                    .override(
+                                      fontFamily: 'Lexend',
+                                      color: FlutterFlowTheme.of(context)
+                                          .textColor,
+                                      fontSize: 37,
+                                    ),
+                              ),
+                            ],
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(20, 12, 20, 16),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                20, 12, 20, 16),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -223,8 +234,31 @@ class _MYCardWidgetState extends State<MYCardWidget>
                 ).animateOnPageLoad(animationsMap['rowOnPageLoadAnimation']!),
               ),
               SearchBarAnimation(
+                onEditingComplete: () {
+                  var temp = searchText.text;
+                  setState(() {
+                    searchText.text = '';
+                  });
+                  temp.length < 7
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BlockWidget(
+                              height: temp,
+                            ),
+                          ),
+                        )
+                      : Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TransactionWidget(
+                              version: temp,
+                            ),
+                          ),
+                        );
+                },
                 searchBoxWidth: MediaQuery.of(context).size.width * 0.95,
-                textEditingController: TextEditingController(),
+                textEditingController: searchText,
                 hintText: "Acc Address / Txn Hash / Block Height or Version",
                 isOriginalAnimation: true,
                 enableKeyboardFocus: true,
@@ -247,7 +281,7 @@ class _MYCardWidgetState extends State<MYCardWidget>
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(6, 16, 6, 16),
+                padding: const EdgeInsetsDirectional.fromSTEB(6, 16, 6, 16),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

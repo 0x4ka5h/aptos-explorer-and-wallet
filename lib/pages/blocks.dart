@@ -1,4 +1,5 @@
 import 'package:explorer/m_y_card/transactionCard.dart';
+import 'package:explorer/main.dart';
 import 'package:explorer/utils/getBlocks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -17,6 +18,8 @@ class BlocksPage extends StatefulWidget {
 }
 
 class _BlocksPageState extends State<BlocksPage> {
+  Future<List> _blockData = getLatestBlocks();
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -48,58 +51,86 @@ class _BlocksPageState extends State<BlocksPage> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(20, 16, 20, 0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'Latest Blocks',
                         style: FlutterFlowTheme.of(context).bodyText2,
                       ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.refresh,
+                          color: FlutterFlowTheme.of(context).bodyText2.color,
+                          size: 22,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _blockData = getLatestBlocks();
+                          });
+                        },
+                      ),
                     ],
                   ),
-                ),
-                const SizedBox(
-                  height: 5,
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.87,
                   child: const Divider(
                     color: Colors.black,
-                    thickness: 2.5,
+                    thickness: 1.5,
                   ),
                 ),
                 FutureBuilder<List>(
-                  future: getLatestBlocks(233358),
+                  future: _blockData,
                   builder:
                       (BuildContext context, AsyncSnapshot<List> snapshot) {
-                    List<Widget> children;
-                    if (snapshot.hasData) {
-                      return Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: snapshot.data!.reversed.map((ele) {
-                            return blockCard(context, ele);
-                          }).toList(),
-                        ),
-                      );
-                    } else {
-                      return Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const <Widget>[
-                            SizedBox(
-                              width: 40,
-                              height: 40,
-                              child: CircularProgressIndicator(),
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.none:
+                      case ConnectionState.waiting:
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const <Widget>[
+                              SizedBox(
+                                width: 40,
+                                height: 40,
+                                child: CircularProgressIndicator(),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: 10),
+                                child: Text(' Fetching Latest Blocks *_^'),
+                              ),
+                            ],
+                          ),
+                        );
+                      default:
+                        if (snapshot.hasError) {
+                          return Column(
+                            children: [
+                              const Icon(Icons.error),
+                              const Text('Failed to fetch data.'),
+                              IconButton(
+                                icon: Icon(Icons.restart_alt_rounded),
+                                onPressed: () {
+                                  setState(() {
+                                    _blockData = getLatestBlocks();
+                                  });
+                                },
+                              ),
+                            ],
+                          );
+                        } else {
+                          return Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: snapshot.data!.map((ele) {
+                                return blockCard(context, ele);
+                              }).toList(),
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 10),
-                              child: Text(' Fetching Latest Blocks *_^'),
-                            ),
-                          ],
-                        ),
-                      );
+                          );
+                        }
                     }
                   },
                 ),

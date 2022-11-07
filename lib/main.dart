@@ -1,7 +1,9 @@
 import 'package:explorer/flutter_flow/flutter_flow_theme.dart';
 import 'package:explorer/login_page/login_page_widget.dart';
+import 'package:explorer/pages/account.dart';
 import 'package:explorer/pages/blocks.dart';
 import 'package:explorer/pages/explorer.dart';
+import 'package:explorer/pages/validators.dart';
 import 'package:explorer/payment_details/blockDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -59,6 +61,10 @@ class _MyAppState extends State<MyApp> {
         child: Container(
           color: Colors.amber,
           child: const NavBarPage(),
+          // child: AccountWidget(
+          //   address:
+          //       "0x523a982615d72b3e7ec92436403708ef934a67e5924b7fe54b26320bc9cc64af",
+          // ),
         ),
       ),
       debugShowCheckedModeBanner: false,
@@ -83,7 +89,11 @@ class _NavBarPageState extends State<NavBarPage> {
   final List<Widget> tabs = [
     const MYCardWidget(),
     const BlocksPage(),
-    const TransactionsContainer(isBlock: false)
+    const TransactionsContainer(isBlock: false),
+    const ValidatorPage(),
+    const AccountWidget(
+        address:
+            "0x541a1e0e9e651c8e913af3c94416ebfba6d3a2370a9ffe92ea75d409615c1dad")
   ];
 
   void onItemTapped(int index) {
@@ -144,7 +154,31 @@ class _NavBarPageState extends State<NavBarPage> {
             ),
             label: " • ",
             tooltip: '',
-          )
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.assignment_turned_in_rounded,
+              size: 24,
+            ),
+            activeIcon: Icon(
+              Icons.assignment_turned_in_rounded,
+              size: 24,
+            ),
+            label: " • ",
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.person,
+              size: 24,
+            ),
+            activeIcon: Icon(
+              Icons.person,
+              size: 24,
+            ),
+            label: " • ",
+            tooltip: '',
+          ),
         ],
       ),
     );
