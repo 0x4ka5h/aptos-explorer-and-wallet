@@ -1,19 +1,23 @@
 // ignore: depend_on_referenced_packages
+import 'package:built_collection/src/list.dart';
 import 'package:http/http.dart' as http;
 // ignore: depend_on_referenced_packages
 import 'package:http/retry.dart';
 import 'dart:convert';
-
 import 'package:intl/intl.dart';
+import 'package:aptos_api_dart/aptos_api_dart.dart';
+
+const url = "https://fullnode.devnet.aptoslabs.com/v1/";
+final api = AptosApiDart(basePathOverride: url).getTransactionsApi();
 
 final client = RetryClient(http.Client());
 
-class Transaction {
+class Transaction_ {
   final List<Map<String, dynamic>> response;
 
-  const Transaction({required this.response});
+  const Transaction_({required this.response});
 
-  factory Transaction.fromJson(List<dynamic> data) {
+  factory Transaction_.fromJson(List<dynamic> data) {
     final List<Map<String, dynamic>> response_ = [];
 
     // ignore: prefer_typing_uninitialized_variables
@@ -60,23 +64,19 @@ class Transaction {
       sender_ = null;
       amount_ = 0;
     }
-    return Transaction(response: response_);
+    return Transaction_(response: response_);
   }
 }
 
 Future<List> getTransactions({List? dataBlock}) async {
-  return Transaction.fromJson(dataBlock!).response;
+  return Transaction_.fromJson(dataBlock!).response;
 }
 
 Future<List> getRecentTransactions() async {
   try {
-    var uri = Uri.parse(
-        "https://fullnode.devnet.aptoslabs.com/v1/transactions?limit=10");
-    final data = await http.get(uri);
-    await Future.delayed(const Duration(milliseconds: 100));
-
+    final data = await api.getTransactions(limit: 10);
     if (data.statusCode == 200) {
-      return Transaction.fromJson(jsonDecode(data.body)).response;
+      return data.data!.asList();
     } else {
       throw Exception('Failed to create album.');
     }

@@ -399,7 +399,7 @@ class _BlockWidget extends State<BlockWidget> with TickerProviderStateMixin {
                           ),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 5,
                         ),
                       ],
                     ),
@@ -467,10 +467,10 @@ String toShortAddres({required String address, required int index}) {
 Widget eachRow(BuildContext context, String title, String value) {
   return Row(
     mainAxisSize: MainAxisSize.max,
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    mainAxisAlignment: MainAxisAlignment.start,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Container(
+      SizedBox(
         width: MediaQuery.of(context).size.width / 3,
         child: Text(
           title,

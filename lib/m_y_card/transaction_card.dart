@@ -1,15 +1,19 @@
+import 'dart:convert';
+
+import 'package:aptos_api_dart/aptos_api_dart.dart';
 import 'package:explorer/flutter_flow/flutter_flow_animations.dart';
 import 'package:explorer/flutter_flow/flutter_flow_theme.dart';
 import 'package:explorer/payment_details/transaction_detail.dart';
+import 'package:explorer/utils/get_recent_transactions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 import 'package:flutter_animate/effects/fade_effect.dart';
 import 'package:flutter_animate/effects/move_effect.dart';
 import 'package:flutter_animate/effects/scale_effect.dart';
 import 'package:flutter_animate/extensions/num_duration_extensions.dart';
 
-Widget transactionsCard(
-    BuildContext context, Map<String, dynamic> transactionDetails) {
+Widget transactionsCard(BuildContext context, dynamic transactionDetails) {
   final animationsMap = {
     'rowOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
@@ -118,19 +122,10 @@ Widget transactionsCard(
           context,
           MaterialPageRoute(
             builder: (context) => TransactionWidget(
-              version: transactionDetails["version"],
+              version: transactionDetails.oneOf.value.version.toString(),
             ),
           ),
         );
-        // Navigator.pushReplacement(
-        //   context,
-        //   PageTransition(
-        //     type: PageTransitionType.fade,
-        //     child: TransactionWidget(
-        //       version: transactionDetails["version"],
-        //     ),
-        //   ),
-        // );
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.93,
@@ -152,46 +147,53 @@ Widget transactionsCard(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      transactionDetails["version"],
-                      style: FlutterFlowTheme.of(context).bodyText2.override(
-                            fontFamily: 'Lexend',
-                            color: FlutterFlowTheme.of(context).alternate,
-                            fontSize: 15,
-                          ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 2 + 20,
+                      child: Text(
+                        // Transaction().oneOf.valueType.toString()
+                        transactionDetails.oneOf.value.version.toString(),
+                        style: FlutterFlowTheme.of(context).bodyText2.override(
+                              fontFamily: 'Lexend',
+                              color: FlutterFlowTheme.of(context).alternate,
+                              fontSize: 15,
+                            ),
+                        // overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Container(
-                          child: transactionDetails["type"] ==
-                                  "state_checkpoint_transaction"
+                          child: transactionDetails.oneOf.typeIndex == 3
+                              // "state_checkpoint_transaction"
                               ? Icon(
                                   Icons.emoji_flags_rounded,
-                                  color: transactionDetails["status"]
+                                  color: transactionDetails.oneOf.value.success
                                       ? FlutterFlowTheme.of(context)
                                           .tertiaryColor
                                       : FlutterFlowTheme.of(context).errorRed,
                                   size: 19,
                                 )
-                              : (transactionDetails["type"] ==
-                                      "block_metadata_transaction"
+                              : (transactionDetails.oneOf.typeIndex == 0
+                                  // "block_metadata_transaction"
                                   ? Icon(
                                       Icons.subtitles_outlined,
-                                      color: transactionDetails["status"]
-                                          ? FlutterFlowTheme.of(context)
-                                              .tertiaryColor
-                                          : FlutterFlowTheme.of(context)
-                                              .errorRed,
+                                      color:
+                                          transactionDetails.oneOf.value.success
+                                              ? FlutterFlowTheme.of(context)
+                                                  .tertiaryColor
+                                              : FlutterFlowTheme.of(context)
+                                                  .errorRed,
                                       size: 19,
                                     )
                                   : Icon(
                                       Icons.swap_horiz_rounded,
-                                      color: transactionDetails["status"]
-                                          ? FlutterFlowTheme.of(context)
-                                              .tertiaryColor
-                                          : FlutterFlowTheme.of(context)
-                                              .errorRed,
+                                      color:
+                                          transactionDetails.oneOf.value.success
+                                              ? FlutterFlowTheme.of(context)
+                                                  .tertiaryColor
+                                              : FlutterFlowTheme.of(context)
+                                                  .errorRed,
                                       size: 21,
                                     )),
                         ),
@@ -232,8 +234,7 @@ Widget transactionsCard(
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               10, 8, 0, 12),
-                          child: transactionDetails["type"] ==
-                                  "state_checkpoint_transaction"
+                          child: transactionDetails.oneOf.typeIndex == 3
                               ? Text(
                                   'hash : ',
                                   textAlign: TextAlign.start,
@@ -246,8 +247,7 @@ Widget transactionsCard(
                                         fontSize: 20,
                                       ),
                                 )
-                              : transactionDetails["type"] ==
-                                      "block_metadata_transaction"
+                              : transactionDetails.oneOf.typeIndex == 0
                                   ? Text(
                                       'proposer : ',
                                       textAlign: TextAlign.start,
@@ -276,11 +276,12 @@ Widget transactionsCard(
                         Padding(
                           padding:
                               const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 12),
-                          child: transactionDetails["type"] ==
-                                  "state_checkpoint_transaction"
+                          child: transactionDetails.oneOf.typeIndex == 3
                               ? Text(
                                   toShortAddres(
-                                      address: transactionDetails["Txn hash"],
+                                      address: transactionDetails
+                                          .oneOf.value.hash
+                                          .toString(),
                                       index: 12),
                                   textAlign: TextAlign.start,
                                   style: FlutterFlowTheme.of(context)
@@ -294,7 +295,9 @@ Widget transactionsCard(
                                 )
                               : Text(
                                   toShortAddres(
-                                      address: transactionDetails["sender"],
+                                      address: transactionDetails
+                                          .oneOf.value.hash
+                                          .toString(),
                                       index: 9),
                                   textAlign: TextAlign.start,
                                   style: FlutterFlowTheme.of(context)
@@ -334,7 +337,10 @@ Widget transactionsCard(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      transactionDetails["timestamp"],
+                      DateTime.fromMicrosecondsSinceEpoch(int.parse(
+                              transactionDetails.oneOf.value.timestamp))
+                          .toString()
+                          .substring(0, 19),
                       style: FlutterFlowTheme.of(context).title3.override(
                             fontFamily: 'Lexend',
                             color: FlutterFlowTheme.of(context).alternate,
@@ -348,7 +354,7 @@ Widget transactionsCard(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Text(
-                              transactionDetails["amount"].toString(),
+                              transactionDetails.oneOf.value.gasUsed.toString(),
                               textAlign: TextAlign.end,
                               style: FlutterFlowTheme.of(context)
                                   .title3

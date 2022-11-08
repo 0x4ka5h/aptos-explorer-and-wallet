@@ -228,7 +228,11 @@ Widget blockCard(BuildContext context, Block blockDetails) {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "${blockDetails.blockTimestamp.toString()}",
+                      "${DateTime.now().difference(
+                            DateTime.fromMicrosecondsSinceEpoch(
+                              int.parse(blockDetails.blockTimestamp),
+                            ),
+                          ).inSeconds.toString()}s ago",
                       style: FlutterFlowTheme.of(context).title3.override(
                             fontFamily: 'Lexend',
                             color: FlutterFlowTheme.of(context).customText,

@@ -78,25 +78,27 @@ class _TransactionsContainerState extends State<TransactionsContainer> {
                         ),
                       ),
                       FutureBuilder<List>(
-                        future: widget.isBlock
-                            ? getTransactions(dataBlock: widget.data)
-                            : getRecentTransactions(),
+                        future: getRecentTransactions(),
                         builder: (BuildContext context, snapshot) {
-                          // List<Widget> children;
                           if (snapshot.hasData) {
                             return Center(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: snapshot.data!.reversed.map((ele) {
-                                  return transactionsCard(context, ele);
+                                children: snapshot.data!.map((e) {
+                                  return transactionsCard(context, e);
                                 }).toList(),
+                                // snapshot.data!.reversed.map((ele) {
+                                //   return transactionsCard(context, ele);
+                                // }).toList(),
                               ),
                             );
+                          } else if (snapshot.hasError) {
+                            return Text(snapshot.error.toString());
                           } else {
                             return Center(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const <Widget>[
+                                children: const [
                                   SizedBox(
                                     width: 40,
                                     height: 40,
