@@ -1,3 +1,4 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 // ignore: depend_on_referenced_packages
@@ -16,27 +17,27 @@ class Transaction {
   factory Transaction.fromJson(Map<String, dynamic> data) {
     Map<String, dynamic> response_ = {};
 
-    var block_height,
-        first_version,
-        last_version,
+    var blockHeight,
+        firstVersion,
+        lastVersion,
         millis,
         proposer,
         epoch,
         round,
-        block_hash;
+        blockHash;
 
     if (data["block_hash"] != null) {
-      block_hash = data["block_hash"];
+      blockHash = data["block_hash"];
     }
     if (data["block_height"] != null) {
-      block_height = data["block_height"];
+      blockHeight = data["block_height"];
     }
     if (data["first_version"] != null) {
-      first_version = data["first_version"];
+      firstVersion = data["first_version"];
     }
 
     if (data["last_version"] != null) {
-      last_version = data["last_version"];
+      lastVersion = data["last_version"];
     }
     if (data["epoch"] != null) {
       epoch = data["epoch"];
@@ -64,10 +65,10 @@ class Transaction {
     var d24 = DateFormat('dd/MM/yyyy, HH:mm').format(dt);
 
     response_ = {
-      "block_hash": block_hash,
-      "block_height": block_height,
-      "first_version": first_version,
-      "last_version": last_version,
+      "block_hash": blockHash,
+      "block_height": blockHeight,
+      "first_version": firstVersion,
+      "last_version": lastVersion,
       "timestamp": d24,
       "age": age,
       "proposer": proposer,
@@ -83,14 +84,14 @@ class Transaction {
 Future<List> getLatestBlocks() async {
   List<Map<String, dynamic>> response = [];
   try {
-    var block_height;
+    var blockHeightBy;
     var height =
         await http.get(Uri.parse("https://fullnode.devnet.aptoslabs.com/v1/"));
     if (height.statusCode == 200) {
-      block_height = (jsonDecode(height.body)["block_height"]);
+      blockHeightBy = (jsonDecode(height.body)["block_height"]);
     }
     for (var i = 0; i < 10; i++) {
-      var blockHeight = (int.parse(block_height) - i).toString();
+      var blockHeight = (int.parse(blockHeightBy) - i).toString();
       var uri = Uri.parse(
           "https://fullnode.devnet.aptoslabs.com/v1/blocks/by_height/$blockHeight");
       final data = await http.get(uri);

@@ -1,14 +1,12 @@
 import 'package:explorer/flutter_flow/flutter_flow_animations.dart';
 import 'package:explorer/flutter_flow/flutter_flow_theme.dart';
-import 'package:explorer/payment_details/blockDetail.dart';
-import 'package:explorer/payment_details/transactionDetail.dart';
+import 'package:explorer/payment_details/block_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/effects/fade_effect.dart';
 import 'package:flutter_animate/effects/move_effect.dart';
 import 'package:flutter_animate/effects/scale_effect.dart';
 import 'package:flutter_animate/extensions/num_duration_extensions.dart';
-import 'package:page_transition/page_transition.dart';
 
 Widget blockCard(BuildContext context, Map<String, dynamic> blockDetails) {
   final animationsMap = {

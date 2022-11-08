@@ -1,14 +1,7 @@
-import 'package:explorer/m_y_card/transactionCard.dart';
-import 'package:explorer/main.dart';
-import 'package:explorer/utils/getBlocks.dart';
+import 'package:explorer/utils/get_blocks.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/widgets.dart';
-
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../utils/getBlocks.dart';
-import '../m_y_card/blockCard.dart';
+import '../m_y_card/block_card.dart';
 
 class BlocksPage extends StatefulWidget {
   const BlocksPage({super.key});
@@ -112,7 +105,7 @@ class _BlocksPageState extends State<BlocksPage> {
                               const Icon(Icons.error),
                               const Text('Failed to fetch data.'),
                               IconButton(
-                                icon: Icon(Icons.restart_alt_rounded),
+                                icon: const Icon(Icons.restart_alt_rounded),
                                 onPressed: () {
                                   setState(() {
                                     _blockData = getLatestBlocks();

@@ -21,6 +21,7 @@ class Transaction {
     // ignore: prefer_typing_uninitialized_variables
     var gas_, amount_ = 0;
 
+    // ignore: prefer_typing_uninitialized_variables
     var millis, dt, d24;
 
     for (var i = 0; i < data.length; i++) {

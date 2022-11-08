@@ -1,10 +1,7 @@
 // ignore: depend_on_referenced_packages
-import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 // ignore: depend_on_referenced_packages
 import 'dart:convert';
-
-import 'package:intl/intl.dart';
 
 Future<Map> getAccount(String address) async {
   Map response = {};
@@ -22,13 +19,10 @@ Future<Map> getAccount(String address) async {
       response["modules"] = modules;
       response["transactions"] = transactions;
       return response;
-      return jsonDecode(data.body);
     } else {
       throw Exception('Failed to create album.');
     }
-  } finally {
-    print("Done");
-  }
+  } finally {}
 }
 
 Future<List> getResources(String address) async {
@@ -42,9 +36,7 @@ Future<List> getResources(String address) async {
     } else {
       throw Exception('Failed to create album.');
     }
-  } finally {
-    print("Resources done");
-  }
+  } finally {}
 }
 
 Future<List> getModules(String address) async {
@@ -58,9 +50,7 @@ Future<List> getModules(String address) async {
     } else {
       throw Exception('Failed to create album.');
     }
-  } finally {
-    print("Modules done");
-  }
+  } finally {}
 }
 
 Future<List> getAccountTransactions(String address) async {
@@ -74,7 +64,5 @@ Future<List> getAccountTransactions(String address) async {
     } else {
       throw Exception('Failed to create album.');
     }
-  } finally {
-    print("Resources done");
-  }
+  } finally {}
 }

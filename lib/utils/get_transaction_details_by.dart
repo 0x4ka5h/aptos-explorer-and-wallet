@@ -9,6 +9,7 @@ Map<String, dynamic> overview() {
   return {"": ""};
 }
 
+// ignore: camel_case_types
 class getTransactionDetail {
   final List<dynamic>? changes;
   final Map<String, dynamic>? payload;
@@ -117,7 +118,7 @@ class getTransactionDetail {
 
 Future<getTransactionDetail> getDetailedTransactions(String txnRversion) async {
   try {
-    final data;
+    final http.Response data;
     if (txnRversion.length > 15) {
       data = await http.get(
         Uri.http(
@@ -136,8 +137,6 @@ Future<getTransactionDetail> getDetailedTransactions(String txnRversion) async {
 
     await Future.delayed(const Duration(milliseconds: 100));
 
-    print(data.statusCode);
-
     if (data.statusCode == 200) {
       var data_ = data.body.toString().replaceAll("state_key_hash", "SK hash");
       data_ = data_.replaceAll("authentication_key", "auth key");
@@ -147,9 +146,7 @@ Future<getTransactionDetail> getDetailedTransactions(String txnRversion) async {
     } else {
       throw Exception('Failed to create album.');
     }
-  } finally {
-    print(" failed to fetch transaction with the input ");
-  }
+  } finally {}
 }
 
 void main() {

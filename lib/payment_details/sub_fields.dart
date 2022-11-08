@@ -2,7 +2,8 @@ import 'package:explorer/flutter_flow/flutter_flow_theme.dart';
 import 'package:explorer/payment_details/overview.dart';
 import 'package:flutter/material.dart';
 
-Widget subField(BuildContext context, List<dynamic> titles, isOpened, List<dynamic>? data){
+Widget subField(
+    BuildContext context, List<dynamic> titles, isOpened, List<dynamic>? data) {
   return Container(
     width: MediaQuery.of(context).size.width * 0.93,
     decoration: BoxDecoration(
@@ -91,6 +92,7 @@ Widget subField(BuildContext context, List<dynamic> titles, isOpened, List<dynam
                       thickness: 2.5,
                     )
                   : Container(),
+              // ignore: unrelated_type_equality_checks
               isOpened && data != "" ? overView(context, data) : Container()
             ],
           ),

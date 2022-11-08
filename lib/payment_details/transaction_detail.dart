@@ -1,14 +1,7 @@
-import 'package:explorer/main.dart';
-import 'package:explorer/pages/explorer.dart';
-import 'package:explorer/m_y_card/transactionCard.dart';
-import 'package:explorer/payment_details/addressShort.dart';
+import 'package:explorer/payment_details/address_short.dart';
 import 'package:explorer/payment_details/overview.dart';
-import 'package:explorer/payment_details/subFields.dart';
-import 'package:explorer/utils/getRecentTransactions.dart';
-import 'package:explorer/utils/getTransactionDetailsBy.dart';
-import 'package:flutter/services.dart';
-import 'package:page_transition/page_transition.dart';
-//import 'package:page_transition/page_transition.dart';
+import 'package:explorer/payment_details/sub_fields.dart';
+import 'package:explorer/utils/get_transaction_details_by.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -20,6 +13,7 @@ class TransactionWidget extends StatefulWidget {
   const TransactionWidget({Key? key, required this.version}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _TransactionWidget createState() => _TransactionWidget();
 }
 

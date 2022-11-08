@@ -1,13 +1,12 @@
 import 'package:explorer/flutter_flow/flutter_flow_theme.dart';
-import 'package:explorer/m_y_card/transactionCard.dart';
-import 'package:explorer/payment_details/prettyJson.dart';
+import 'package:explorer/payment_details/pretty_json.dart';
 import 'package:flutter/material.dart';
 
 Widget overView(BuildContext context, List<dynamic>? overview) {
   return // Generated code for this Container Widget...
       Padding(
     padding: const EdgeInsetsDirectional.fromSTEB(8, 4, 8, 0),
-    child: Container(
+    child: SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Padding(
         padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 12, 3),
@@ -101,7 +100,7 @@ Widget overView(BuildContext context, List<dynamic>? overview) {
                       width: MediaQuery.of(context).size.width * 0.95,
                       margin: const EdgeInsets.only(bottom: 10),
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(103, 27, 31, 30),
+                        color: const Color.fromARGB(103, 27, 31, 30),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Column(children: childs),

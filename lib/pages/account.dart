@@ -1,19 +1,7 @@
-import 'dart:convert';
-import 'package:explorer/main.dart';
-import 'package:explorer/pages/explorer.dart';
-import 'package:explorer/m_y_card/transactionCard.dart';
 import 'package:explorer/pages/transactions.dart';
-import 'package:explorer/payment_details/accountDetail.dart';
-import 'package:explorer/payment_details/addressShort.dart';
-import 'package:explorer/payment_details/overview.dart';
-import 'package:explorer/payment_details/subFields.dart';
-import 'package:explorer/payment_details/transactionDetail.dart';
-import 'package:explorer/utils/getAccount.dart';
-import 'package:explorer/utils/getRecentTransactions.dart';
-import 'package:explorer/utils/getTransactionDetailsBy.dart';
-import 'package:flutter/services.dart';
-import 'package:page_transition/page_transition.dart';
-// import 'package:page_transition/page_transition.dart';
+import 'package:explorer/payment_details/account_detail.dart';
+import 'package:explorer/payment_details/address_short.dart';
+import 'package:explorer/utils/get_account.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -25,6 +13,7 @@ class AccountWidget extends StatefulWidget {
   const AccountWidget({Key? key, required this.address}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _AccountWidget createState() => _AccountWidget();
 }
 
@@ -345,7 +334,7 @@ class _AccountWidget extends State<AccountWidget>
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   8, 4, 8, 4),
-                              child: Container(
+                              child: SizedBox(
                                 width: MediaQuery.of(context).size.width,
                                 child: Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(

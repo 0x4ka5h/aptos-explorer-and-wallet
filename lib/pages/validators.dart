@@ -1,13 +1,7 @@
-import 'package:explorer/flutter_flow/flutter_flow_animations.dart';
-import 'package:explorer/m_y_card/validatorCard.dart';
+import 'package:explorer/m_y_card/validator_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
-
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../m_y_card/blockCard.dart';
 
 class ValidatorPage extends StatefulWidget {
   const ValidatorPage({super.key});

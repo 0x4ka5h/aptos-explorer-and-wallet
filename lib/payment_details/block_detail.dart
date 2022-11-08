@@ -1,18 +1,7 @@
-import 'package:explorer/main.dart';
-import 'package:explorer/pages/blocks.dart';
-import 'package:explorer/pages/explorer.dart';
-import 'package:explorer/m_y_card/transactionCard.dart';
 import 'package:explorer/pages/transactions.dart';
-import 'package:explorer/payment_details/addressShort.dart';
-import 'package:explorer/payment_details/overview.dart';
-import 'package:explorer/payment_details/subFields.dart';
-import 'package:explorer/payment_details/transactionDetail.dart';
-import 'package:explorer/utils/getBlocks.dart';
-import 'package:explorer/utils/getRecentTransactions.dart';
-import 'package:explorer/utils/getTransactionDetailsBy.dart';
-import 'package:flutter/services.dart';
-import 'package:page_transition/page_transition.dart';
-//import 'package:page_transition/page_transition.dart';
+import 'package:explorer/payment_details/address_short.dart';
+import 'package:explorer/payment_details/transaction_detail.dart';
+import 'package:explorer/utils/get_blocks.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -24,6 +13,7 @@ class BlockWidget extends StatefulWidget {
   const BlockWidget({Key? key, required this.height}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _BlockWidget createState() => _BlockWidget();
 }
 
@@ -378,7 +368,7 @@ class _BlockWidget extends State<BlockWidget> with TickerProviderStateMixin {
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     8, 4, 8, 0),
-                                child: Container(
+                                child: SizedBox(
                                   width: MediaQuery.of(context).size.width,
                                   child: Padding(
                                     padding:

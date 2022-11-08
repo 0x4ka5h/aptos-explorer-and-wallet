@@ -1,7 +1,6 @@
 import 'package:explorer/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
 Widget addressShort(
   BuildContext context,

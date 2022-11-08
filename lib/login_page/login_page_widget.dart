@@ -1,14 +1,12 @@
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class LoginPageWidget extends StatefulWidget {
   const LoginPageWidget({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _LoginPageWidgetState createState() => _LoginPageWidgetState();
 }
 
@@ -68,7 +66,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         children: [
                           if (Theme.of(context).brightness == Brightness.dark)
                             Container(
-                              margin: EdgeInsets.only(top: 20),
+                              margin: const EdgeInsets.only(top: 20),
                               child: Image.asset(
                                 'assets/images/finWallet_logo_landscape.png',
                                 width: 170,

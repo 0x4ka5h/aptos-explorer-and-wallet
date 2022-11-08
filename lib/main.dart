@@ -1,13 +1,8 @@
 import 'package:explorer/flutter_flow/flutter_flow_theme.dart';
-import 'package:explorer/login_page/login_page_widget.dart';
 import 'package:explorer/pages/account.dart';
 import 'package:explorer/pages/blocks.dart';
 import 'package:explorer/pages/explorer.dart';
-import 'package:explorer/pages/validators.dart';
-import 'package:explorer/payment_details/blockDetail.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'pages/transactions.dart';
 
 void main() async {
@@ -22,6 +17,7 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 
+  // ignore: library_private_types_in_public_api
   static _MyAppState of(BuildContext context) =>
       context.findAncestorStateOfType<_MyAppState>()!;
 }

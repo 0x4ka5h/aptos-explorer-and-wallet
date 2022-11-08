@@ -1,12 +1,8 @@
-import 'package:explorer/flutter_flow/flutter_flow_animations.dart';
-import 'package:explorer/m_y_card/transactionCard.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:explorer/m_y_card/transaction_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../utils/getRecentTransactions.dart';
+import '../utils/get_recent_transactions.dart';
 
 class TransactionsContainer extends StatefulWidget {
   final bool isBlock;

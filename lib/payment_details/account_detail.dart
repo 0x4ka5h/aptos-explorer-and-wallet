@@ -1,11 +1,9 @@
+// ignore: file_names
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
 import '../flutter_flow/flutter_flow_theme.dart';
 
+// ignore: must_be_immutable
 class AccountData extends StatefulWidget {
   List data;
   String name;
@@ -72,7 +70,7 @@ class _AccountDataState extends State<AccountData> {
           ),
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(8, 4, 8, 4),
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width,
               child: isResourceClosed
                   ? null

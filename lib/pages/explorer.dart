@@ -1,27 +1,17 @@
-import 'package:explorer/pages/account.dart';
-import 'package:explorer/pages/blocks.dart';
-import 'package:explorer/m_y_card/detailsCardWidget.dart';
-import 'package:explorer/pages/transactions.dart';
-import 'package:explorer/payment_details/blockDetail.dart';
-import 'package:explorer/utils/getRecentTransactions.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:explorer/m_y_card/details_card_widget.dart';
+import 'package:explorer/payment_details/block_detail.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:explorer/m_y_card/transactionCard.dart';
-import '../payment_details/transactionDetail.dart';
+import '../payment_details/transaction_detail.dart';
 
 class MYCardWidget extends StatefulWidget {
   const MYCardWidget({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _MYCardWidgetState createState() => _MYCardWidgetState();
 }
 
