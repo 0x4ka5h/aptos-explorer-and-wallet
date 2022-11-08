@@ -4,10 +4,16 @@ import 'package:http/http.dart' as http;
 // ignore: depend_on_referenced_packages
 import 'package:http/retry.dart';
 import 'dart:convert';
+import 'package:aptos_api_dart/aptos_api_dart.dart';
 
 import 'package:intl/intl.dart';
 
 final client = RetryClient(http.Client());
+
+const url = "https://fullnode.devnet.aptoslabs.com/v1/";
+
+final api = AptosApiDart(basePathOverride: url).getGeneralApi();
+final blockApi = AptosApiDart(basePathOverride: url).getBlocksApi();
 
 class Transaction {
   final Map<String, dynamic> response;
@@ -82,23 +88,19 @@ class Transaction {
 }
 
 Future<List> getLatestBlocks() async {
-  List<Map<String, dynamic>> response = [];
+  var response = [];
   try {
     var blockHeightBy;
-    var height =
-        await http.get(Uri.parse("https://fullnode.devnet.aptoslabs.com/v1/"));
+    var height = await api.getLedgerInfo();
     if (height.statusCode == 200) {
-      blockHeightBy = (jsonDecode(height.body)["block_height"]);
+      blockHeightBy = height.data!.blockHeight;
     }
     for (var i = 0; i < 10; i++) {
-      var blockHeight = (int.parse(blockHeightBy) - i).toString();
-      var uri = Uri.parse(
-          "https://fullnode.devnet.aptoslabs.com/v1/blocks/by_height/$blockHeight");
-      final data = await http.get(uri);
-      // await Future.delayed(const Duration(milliseconds: 100));
+      var blockHeight = (int.parse(blockHeightBy) - i);
+      final data = await blockApi.getBlockByHeight(blockHeight: blockHeight);
 
       if (data.statusCode == 200) {
-        response.add(Transaction.fromJson(jsonDecode(data.body)).response);
+        response.add(data.data);
       } else {
         throw Exception('Failed to create album.');
       }
@@ -109,14 +111,12 @@ Future<List> getLatestBlocks() async {
   }
 }
 
-Future<Map> getBlock(String blockHeight) async {
+Future<Block> getBlock(String blockHeight) async {
   try {
-    var uri = Uri.parse(
-        "https://fullnode.devnet.aptoslabs.com/v1/blocks/by_height/$blockHeight?with_transactions=true");
-    final data = await http.get(uri);
-    // await Future.delayed(const Duration(milliseconds: 100));
+    final data =
+        await blockApi.getBlockByHeight(blockHeight: int.parse(blockHeight));
     if (data.statusCode == 200) {
-      return Transaction.fromJson(jsonDecode(data.body)).response;
+      return data.data as Future<Block>;
     } else {
       throw Exception('Failed to create album.');
     }

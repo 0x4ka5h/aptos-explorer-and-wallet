@@ -46,6 +46,8 @@ dependencies:
   page_transition: ^2.0.9
   searchbar_animation: ^0.0.4
   flutter_json_view: ^0.4.0
+  aptos_api_dart: ^1.0.0
+  dio: ^4.0.6
 
 dev_dependencies:
   flutter_test:

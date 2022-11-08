@@ -1,3 +1,4 @@
+import 'package:aptos_api_dart/aptos_api_dart.dart';
 import 'package:explorer/flutter_flow/flutter_flow_animations.dart';
 import 'package:explorer/flutter_flow/flutter_flow_theme.dart';
 import 'package:explorer/payment_details/block_detail.dart';
@@ -8,7 +9,7 @@ import 'package:flutter_animate/effects/move_effect.dart';
 import 'package:flutter_animate/effects/scale_effect.dart';
 import 'package:flutter_animate/extensions/num_duration_extensions.dart';
 
-Widget blockCard(BuildContext context, Map<String, dynamic> blockDetails) {
+Widget blockCard(BuildContext context, Block blockDetails) {
   final animationsMap = {
     'rowOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
@@ -116,8 +117,10 @@ Widget blockCard(BuildContext context, Map<String, dynamic> blockDetails) {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                BlockWidget(height: blockDetails["block_height"]),
+            builder: (context) => BlockWidget(
+              height: blockDetails.blockHeight,
+              block: blockDetails,
+            ),
           ),
         );
       },
@@ -144,7 +147,7 @@ Widget blockCard(BuildContext context, Map<String, dynamic> blockDetails) {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      blockDetails["block_height"],
+                      blockDetails.blockHeight,
                       style: FlutterFlowTheme.of(context).bodyText2.override(
                             fontFamily: 'Lexend',
                             color: FlutterFlowTheme.of(context).alternate,
@@ -182,28 +185,12 @@ Widget blockCard(BuildContext context, Map<String, dynamic> blockDetails) {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Padding(
-                        //     padding: const EdgeInsetsDirectional.fromSTEB(
-                        //         10, 8, 0, 12),
-                        //     child: Text(
-                        //       'Hash : ',
-                        //       textAlign: TextAlign.start,
-                        //       style:
-                        //           FlutterFlowTheme.of(context).title1.override(
-                        //                 fontFamily: 'Lexend',
-                        //                 color: FlutterFlowTheme.of(context)
-                        //                     .title1
-                        //                     .color,
-                        //                 fontSize: 20,
-                        //               ),
-                        //     )),
                         Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 10, 8, 0, 12),
                             child: Text(
                               toShortAddres(
-                                  address: blockDetails["block_hash"],
-                                  index: 15),
+                                  address: blockDetails.blockHash, index: 15),
                               textAlign: TextAlign.start,
                               overflow: TextOverflow.ellipsis,
                               style:
@@ -219,8 +206,8 @@ Widget blockCard(BuildContext context, Map<String, dynamic> blockDetails) {
                               5, 8, 10, 12),
                           child: InkWell(
                             onTap: () {
-                              Clipboard.setData(ClipboardData(
-                                  text: blockDetails["block_hash"]));
+                              Clipboard.setData(
+                                  ClipboardData(text: blockDetails.blockHash));
                             },
                             child: const Icon(
                               Icons.copy_outlined,
@@ -241,7 +228,7 @@ Widget blockCard(BuildContext context, Map<String, dynamic> blockDetails) {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "${blockDetails["age"].toString()}s ago",
+                      "${blockDetails.blockTimestamp.toString()}",
                       style: FlutterFlowTheme.of(context).title3.override(
                             fontFamily: 'Lexend',
                             color: FlutterFlowTheme.of(context).customText,
@@ -252,7 +239,7 @@ Widget blockCard(BuildContext context, Map<String, dynamic> blockDetails) {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          blockDetails["first_version"],
+                          blockDetails.firstVersion,
                           style: FlutterFlowTheme.of(context).title3.override(
                                 fontFamily: 'Lexend',
                                 color: FlutterFlowTheme.of(context).customText,
@@ -260,7 +247,7 @@ Widget blockCard(BuildContext context, Map<String, dynamic> blockDetails) {
                               ),
                         ),
                         Text(
-                          " - ${blockDetails["last_version"]}",
+                          " - ${blockDetails.lastVersion}",
                           style: FlutterFlowTheme.of(context).title3.override(
                                 fontFamily: 'Lexend',
                                 color: FlutterFlowTheme.of(context).customText,
@@ -269,52 +256,6 @@ Widget blockCard(BuildContext context, Map<String, dynamic> blockDetails) {
                         ),
                       ],
                     ),
-                    //       Row(
-                    //         mainAxisAlignment: MainAxisAlignment.end,
-                    //         children: [
-                    //           Column(
-                    //             mainAxisSize: MainAxisSize.max,
-                    //             children: [
-                    //               Text(
-                    //                 blockDetails["amount"].toString(),
-                    //                 textAlign: TextAlign.end,
-                    //                 style: FlutterFlowTheme.of(context)
-                    //                     .title3
-                    //                     .override(
-                    //                       fontFamily: 'Lexend',
-                    //                       color:
-                    //                           FlutterFlowTheme.of(context).textColor,
-                    //                     ),
-                    //               ),
-                    //               Padding(
-                    //                 padding:
-                    //                     EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
-                    //                 child: Text(
-                    //                   "Gas: 0.00101 ",
-                    //                   textAlign: TextAlign.end,
-                    //                   style: FlutterFlowTheme.of(context)
-                    //                       .bodyText2
-                    //                       .override(
-                    //                         fontFamily: 'Lexend',
-                    //                         color: Color(0xB3FFFFFF),
-                    //                         fontWeight: FontWeight.w300,
-                    //                       ),
-                    //                 ),
-                    //               ),
-                    //             ],
-                    //           ),
-                    //           Text(
-                    //             'APT',
-                    //             style: FlutterFlowTheme.of(context)
-                    //                 .bodyText2
-                    //                 .override(
-                    //                   fontFamily: 'Lexend',
-                    //                   color: FlutterFlowTheme.of(context).alternate,
-                    //                   fontWeight: FontWeight.w400,
-                    //                 ),
-                    //           ),
-                    //         ],
-                    //       ),
                   ],
                 ),
               ),

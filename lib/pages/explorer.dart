@@ -233,8 +233,8 @@ class _MYCardWidgetState extends State<MYCardWidget>
                       ? Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => BlockWidget(
-                              height: temp,
+                            builder: (context) => TransactionWidget(
+                              version: temp,
                             ),
                           ),
                         )
