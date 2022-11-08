@@ -129,7 +129,7 @@ Widget blockCard(BuildContext context, Map<String, dynamic> blockDetails) {
           // color: const Color.fromARGB(
           //     255, 0, 116, 106),
           // //FlutterFlowTheme.of(context).grayDark,
-          color: const Color.fromARGB(221, 27, 31, 30),
+          color: const Color.fromARGB(255, 0, 116, 106),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Padding(
@@ -149,13 +149,13 @@ Widget blockCard(BuildContext context, Map<String, dynamic> blockDetails) {
                       blockDetails["block_height"],
                       style: FlutterFlowTheme.of(context).bodyText2.override(
                             fontFamily: 'Lexend',
-                            color: FlutterFlowTheme.of(context).customText,
+                            color: FlutterFlowTheme.of(context).alternate,
                             fontSize: 15,
                           ),
                     ),
                     Icon(
                       Icons.arrow_forward_ios_rounded,
-                      color: FlutterFlowTheme.of(context).customText,
+                      color: FlutterFlowTheme.of(context).textColor,
                       size: 16,
                     ),
                   ],
@@ -167,7 +167,7 @@ Widget blockCard(BuildContext context, Map<String, dynamic> blockDetails) {
                   height: 42,
                   margin: const EdgeInsets.only(left: 0, top: 5),
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 54, 58, 57),
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
                     boxShadow: const [
                       BoxShadow(
                         blurRadius: 17,
@@ -212,8 +212,7 @@ Widget blockCard(BuildContext context, Map<String, dynamic> blockDetails) {
                                   FlutterFlowTheme.of(context).title1.override(
                                         fontFamily: 'Lexend',
                                         color: FlutterFlowTheme.of(context)
-                                            .title1
-                                            .color,
+                                            .tertiaryColor,
                                         fontSize: 20,
                                       ),
                             )),

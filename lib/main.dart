@@ -90,7 +90,7 @@ class _NavBarPageState extends State<NavBarPage> {
     const MYCardWidget(),
     const BlocksPage(),
     const TransactionsContainer(isBlock: false),
-    const ValidatorPage(),
+    // const ValidatorPage(),
     const AccountWidget(
         address:
             "0x541a1e0e9e651c8e913af3c94416ebfba6d3a2370a9ffe92ea75d409615c1dad")
@@ -155,18 +155,18 @@ class _NavBarPageState extends State<NavBarPage> {
             label: " • ",
             tooltip: '',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.assignment_turned_in_rounded,
-              size: 24,
-            ),
-            activeIcon: Icon(
-              Icons.assignment_turned_in_rounded,
-              size: 24,
-            ),
-            label: " • ",
-            tooltip: '',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(
+          //     Icons.assignment_turned_in_rounded,
+          //     size: 24,
+          //   ),
+          //   activeIcon: Icon(
+          //     Icons.assignment_turned_in_rounded,
+          //     size: 24,
+          //   ),
+          //   label: " • ",
+          //   tooltip: '',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.person,
