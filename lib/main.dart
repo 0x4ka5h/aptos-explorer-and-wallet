@@ -57,10 +57,6 @@ class _MyAppState extends State<MyApp> {
         child: Container(
           color: Colors.amber,
           child: const NavBarPage(),
-          // child: AccountWidget(
-          //   address:
-          //       "0x523a982615d72b3e7ec92436403708ef934a67e5924b7fe54b26320bc9cc64af",
-          // ),
         ),
       ),
       debugShowCheckedModeBanner: false,
