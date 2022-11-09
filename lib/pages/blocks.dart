@@ -20,6 +20,7 @@ class _BlocksPageState extends State<BlocksPage> {
       child: Column(
         children: [
           const Text(
+            
             "Blocks",
             style: TextStyle(
               fontSize: 30,
